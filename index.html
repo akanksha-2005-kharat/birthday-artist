@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abhiii's Little Sketchbook 🎨</title>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Patrick+Hand&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #eee8da;
+  color: #554b42;
+  font-family: 'DM Sans', sans-serif;
+  padding: 20px;
+}
+
+.book {
+  max-width: 850px;
+  min-height: 650px;
+  margin: auto;
+  background: #fffdf4;
+  border: 1px solid #dfd5c1;
+  border-radius: 5px;
+  padding: 30px;
+  box-shadow: 0 12px 35px #65543b25;
+  position: relative;
+  overflow: hidden;
+}
+
+.topline {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #9c8d79;
+  border-bottom: 1px dashed #d9cdb9;
+  padding-bottom: 15px;
+  letter-spacing: 2px;
+}
+
+h1, h2, h3 {
+  font-family: 'Caveat', cursive;
+}
+
+h1 {
+  font-size: clamp(45px, 9vw, 76px);
+  color: #bd8190;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: 40px;
+  color: #bd8190;
+}
+
+p {
+  line-height: 1.9;
+}
+
+.page {
+  display: none;
+  padding: 40px 10px 25px;
+  animation: fade 0.5s ease;
+}
+
+.page.active {
+  display: block;
+}
+
+@keyframes fade {
+  from {opacity: 0; transform: translateY(10px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+.hand {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 21px;
+}
+
+.subheading {
+  color: #a58d67;
+  font-family: 'Caveat', cursive;
+  font-size: 26px;
+}
+
+.doodles {
+  font-size: 30px;
+  margin: 20px 0;
+  letter-spacing: 9px;
+}
+
+.highlight {
+  background: #f8edb9;
+  padding: 2px 7px;
+}
+
+button {
+  border: 1px solid #d9b8a9;
+  background: #f6e8e5;
+  color: #815b63;
+  padding: 12px 22px;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 8px 4px;
+  transition: .25s;
+}
+
+button:hover {
+  background: #f2d9d5;
+  transform: translateY(-2px);
+}
+
+.yellow {
+  background: #f6edc9;
+  border-color: #e2d49a;
+}
+
+.navigation {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  border-top: 1px dashed #d9cdb9;
+  padding-top: 18px;
+  margin-top: 30px;
+}
+
+.navigation button {
+  font-size: 16px;
+}
+
+.navigation button.selected {
+  background: #e9d6d0;
+  font-weight: bold;
+}
+
+.artist-tools {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 28px auto;
+}
+
+.tool {
+  width: 105px;
+  height: 120px;
+  background: #f8f1dc;
+  border: 1px solid #e2d7b9;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 34px;
+  transform: rotate(-3deg);
+}
+
+.tool:nth-child(even) {
+  transform: rotate(4deg);
+  background: #f9e9e9;
+}
+
+.tool small {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 15px;
+  margin-top: 8px;
+}
+
+.pen-doodle {
+  display: inline-block;
+  font-size: 52px;
+  transform: rotate(-35deg);
+  margin: 12px;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-top: 25px;
+}
+
+.photo {
+  padding: 10px 10px 18px;
+  background: white;
+  border: 1px solid #e9dfd0;
+  box-shadow: 2px 5px 12px #554b4215;
+  transform: rotate(-2deg);
+}
+
+.photo:nth-child(even) {
+  transform: rotate(2deg);
+}
+
+.photo img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  background: #f4eedf;
+}
+
+.photo p {
+  font-family: 'Caveat', cursive;
+  font-size: 22px;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.letter {
+  background: #faf4e5;
+  border: 1px dashed #d9c49c;
+  padding: 28px;
+  margin: 25px auto;
+  max-width: 580px;
+  text-align: left;
+  box-shadow: 3px 5px 15px #554b4210;
+}
+
+.letter p {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 20px;
+  line-height: 1.8;
+}
+
+.letter h2 {
+  text-align: center;
+}
+
+.footer {
+  text-align: center;
+  font-family: 'Caveat', cursive;
+  font-size: 19px;
+  color: #a18b7d;
+  margin-top: 30px;
+}
+
+#confetti {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 20;
+}
+
+.piece {
+  position: absolute;
+  top: -30px;
+  animation: fall 4s linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(600deg);
+    opacity: 0;
+  }
+}
+
+.music-control {
+  display: inline-block;
+  margin-top: 20px;
+}
+
+@media(max-width: 520px) {
+  body { padding: 8px; }
+  .book { padding: 18px; }
+  .page { padding: 30px 3px; }
+  .gallery { gap: 10px; }
+  .photo img { height: 130px; }
+  .letter { padding: 20px; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="confetti"></div>
+
+<div class="book">
+
+<div class="topline">
+  <span>ABHIII'S SKETCHBOOK</span>
+  <span>VOL. 01 · BIRTHDAY EDITION</span>
+</div>
+
+
+<!-- PAGE 1 -->
+
+<section class="page active" id="page1">
+
+  <center>
+    <div class="doodles">✿ ♡ ✎ ✧</div>
+
+    <p class="subheading">A little something,for you...</p>
+
+    <h1>Hey Artist!</h1>
+
+    <p class="hand">
+      Someone has made a little corner of the internet
+       for you.
+    </p>
+
+    <div class="artist-tools">
+      <div class="tool">
+        ✏️
+        <small>Pencil</small>
+      </div>
+
+      <div class="tool">
+        🖋️
+        <small>Metal pen</small>
+      </div>
+
+      <div class="tool">
+        🎨
+        <small> Black Marker</small>
+      </div>
+
+      <div class="tool">
+        🖌️
+        <small>Pen</small>
+      </div>
+    </div>
+
+    <p class="hand">
+      Ready to turn a page? 👀
+    </p>
+
+    <button class="yellow" onclick="showPage(2)">
+      Open your sketchbook →
+    </button>
+
+    <div class="doodles">♡ ✧ 🌷 ✎</div>
+
+  </center>
+
+</section>
+
+
+<!-- PAGE 2 -->
+
+<section class="page" id="page2">
+
+  <center>
+
+    <p class="subheading">A collection of creativity...</p>
+
+    <h2>The Artist's Corner 🎨</h2>
+
+    <p class="hand">
+      Every drawing has a little piece of imagination in it.
+    </p>
+
+    <div class="pen-doodle">🖋️</div>
+
+    <div class="gallery">
+
+      <div class="photo">
+        <img src="images/drawing 01.png" alt="Artwork 1">
+        <p>Little masterpiece ♡</p>
+      </div>
+
+      <div class="photo">
+        <img src="images/drawing 02.png" alt="Artwork 2">
+        <p>Creative thoughts ✧</p>
+      </div>
+
+      <div class="photo">
+        <img src="images/drawing 03.png" alt="Artwork 3">
+        <p>Made with imagination 🌷</p>
+      </div>
+
+      <div class="photo">
+        <img src="images/drawing 04.png" alt="Artwork 4">
+        <p>Another little creation 💛</p>
+      </div>
+
+    </div>
+
+    <div class="doodles">✎ ♡ ✿ 🖌️</div>
+
+    <p class="hand">
+      Keep creating. The world needs your art!
+    </p>
+
+    <button onclick="showPage(1)">← Previous page</button>
+
+    <button class="yellow" onclick="showPage(3)">
+      Turn to the last page →
+    </button>
+
+  </center>
+
+</section>
+
+
+<!-- PAGE 3 -->
+
+<section class="page" id="page3">
+
+  <center>
+
+    <p class="subheading">A note from the heart...</p>
+
+    <h2>Happy Birthday! 💛</h2>
+
+    <div class="doodles">🌷 ♡ ✧ 🎂</div>
+
+    <div class="letter">
+
+      <h2>Dear Abhiii,</h2>
+
+      <br>
+
+      <p>
+        Happiest Birthday to you Artist!!🥳
+        <br><br>
+
+        I hope this new year of your life brings
+        you lots of happiness, beautiful experiences
+        and reasons to smile.
+        <br><br>
+
+        Keep doing what you love, keep exploring
+        your creativity and never stop making
+        beautiful things.
+        <br><br>
+
+        I hope you continue to grow as an artist
+        and achieve everything you work towards.
+        <br><br>
+
+        May you always find inspiration in the
+        little things around you.
+        <br><br>
+
+        Keep sketching, keep dreaming and
+        keep being yourself.
+        <br><br>
+
+        Wishing you a wonderful birthday
+        and an amazing year ahead!
+        <br><br>
+
+        <b>Stay creative. Stay awesome. ♡</b>
+
+        <br><br>
+
+        With lots of good wishes,
+        <br>
+        From a Follower of your art.      </p>
+
+    </div>
+
+    <div class="doodles">✿ 🖋️ 💛 ✧</div>
+
+    <p class="hand">
+      End of this little sketchbook...
+      <br>
+      But never the end of your creativity!
+    </p>
+
+    <button onclick="showPage(2)">← Previous page</button>
+
+    <button class="yellow" onclick="celebrate()">
+      One last surprise! 🎉
+    </button>
+
+    <div class="music-control">
+      <button onclick="toggleMusic()" id="musicBtn">
+        ♫ Play Birthday Music
+      </button>
+    </div>
+
+  </center>
+
+</section>
+
+
+<div class="navigation">
+
+  <button id="nav1" class="selected"
+          onclick="showPage(1)">01 · Welcome</button>
+
+  <button id="nav2"
+          onclick="showPage(2)">02 · Gallery</button>
+
+  <button id="nav3"
+          onclick="showPage(3)">03 · Letter</button>
+
+</div>
+
+<div class="footer">
+  Made with love, a little imagination & lots of doodles. ♡
+  <br>
+  For Abhiii · Birthday Edition
+</div>
+
+</div>
+
+
+<script>
+
+// PAGE NAVIGATION
+
+function showPage(number) {
+
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.remove("active");
+  });
+
+  document.getElementById("page" + number)
+    .classList.add("active");
+
+  document.querySelectorAll(".navigation button")
+    .forEach(button => button.classList.remove("selected"));
+
+  document.getElementById("nav" + number)
+    .classList.add("selected");
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+
+// CONFETTI
+
+function celebrate() {
+
+  const emojis = ["💗", "💛", "✨", "🎉", "🌷", "🎨"];
+
+  for (let i = 0; i < 70; i++) {
+
+    const piece = document.createElement("div");
+
+    piece.className = "piece";
+
+    piece.innerHTML =
+      emojis[Math.floor(Math.random() * emojis.length)];
+
+    piece.style.left = Math.random() * 100 + "vw";
+
+    piece.style.animationDelay =
+      Math.random() * 2 + "s";
+
+    piece.style.fontSize =
+      (16 + Math.random() * 20) + "px";
+
+    document.getElementById("confetti")
+      .appendChild(piece);
+
+    setTimeout(() => piece.remove(), 6000);
+  }
+}
+
+
+// BIRTHDAY MUSIC - ORIGINAL MELODY
+
+let audioContext = null;
+let musicTimer = null;
+let playing = false;
+let noteIndex = 0;
+
+const melody = [
+  523, 523, 587, 523, 698, 659,
+  523, 523, 587, 523, 784, 698,
+  523, 523, 1047, 880, 698, 659, 587,
+  932, 932, 880, 698, 784, 698
+];
+
+function playNote(frequency) {
+
+  const oscillator = audioContext.createOscillator();
+  const gain = audioContext.createGain();
+
+  oscillator.type = "sine";
+  oscillator.frequency.value = frequency;
+
+  gain.gain.setValueAtTime(
+    0.0001, audioContext.currentTime
+  );
+
+  gain.gain.exponentialRampToValueAtTime(
+    0.10, audioContext.currentTime + 0.03
+  );
+
+  gain.gain.exponentialRampToValueAtTime(
+    0.0001, audioContext.currentTime + 0.35
+  );
+
+  oscillator.connect(gain);
+  gain.connect(audioContext.destination);
+
+  oscillator.start();
+  oscillator.stop(audioContext.currentTime + 0.4);
+}
+
+async function toggleMusic() {
+
+  const button = document.getElementById("musicBtn");
+
+  if (!playing) {
+
+    const AudioClass =
+      window.AudioContext || window.webkitAudioContext;
+
+    if (!AudioClass) {
+      alert("Your browser does not support music.");
+      return;
+    }
+
+    if (!audioContext) {
+      audioContext = new AudioClass();
+    }
+
+    if (audioContext.state === "suspended") {
+      await audioContext.resume();
+    }
+
+    playing = true;
+
+    button.innerHTML = "♫ Pause Music";
+
+    musicTimer = setInterval(() => {
+
+      playNote(melody[noteIndex]);
+
+      noteIndex = (noteIndex + 1) % melody.length;
+
+    }, 400);
+
+  } else {
+
+    clearInterval(musicTimer);
+
+    playing = false;
+
+    button.innerHTML = "♫ Play Birthday Music";
+  }
+}
+
+</script>
+
+</body>
+</html>
